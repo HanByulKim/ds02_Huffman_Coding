@@ -23,9 +23,16 @@ void main(){
 	freq = Rscript(cnt);
 	for (int i = 0; i < 30; i++)
 		std::cout << freq[i] << ", ";
+
+	// Heap Construct
 	Heap heap(cnt);
-	for (char i = 0; i < cnt; i++)
+	for (char i = 0; i < 26; i++)
 		if(freq[i] != 0) heap.insert((char)(i + 97), freq[i]);
+	if (freq[26] != 0) heap.insert(' ', freq[26]);
+	if (freq[27] != 0) heap.insert(',', freq[27]);
+	if (freq[28] != 0) heap.insert('.', freq[28]);
+	if (freq[29] != 0) heap.insert('\n', freq[29]);
+
 	heap.print();
 
 	system("pause");
@@ -53,7 +60,7 @@ int* Rscript(int& cnt){
 			// 0~25 : a-z, 26 : space, 27 : comma, 28 : dot, 29 : new line
 			for (int i = 0; i < str.length(); i++){
 				switch (str.at(i)){
-				case ' ':
+				case '\0':
 					freq[26]++;
 					break;
 				case ',':
@@ -62,13 +69,11 @@ int* Rscript(int& cnt){
 				case '.':
 					freq[28]++;
 					break;
-				case '\n':
-					freq[29]++;
-					break;
 				default:
 					freq[str.at(i) - 97]++;
 				}
 			}
+			freq[29]++;// for end of line
 		}
 	}
 	else{ std::cout << "Wrong File!" << std::endl; }
