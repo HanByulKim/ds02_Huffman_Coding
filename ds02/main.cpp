@@ -18,13 +18,16 @@ int* Rscript(int& cnt);
 std::string CleanLine(const std::string& n);
 
 void main(){
+	std::cout << std::numeric_limits<char>::max() << std::endl;
+	std::cout << std::numeric_limits<int>::max() << std::endl;
+
 	int* freq;
 	int cnt = 0;
 	freq = Rscript(cnt);
 	for (int i = 0; i < 30; i++)
 		std::cout << freq[i] << ", ";
 
-	// Heap Construct
+	// Constructing Heap
 	Heap heap(cnt);
 	for (char i = 0; i < 26; i++)
 		if(freq[i] != 0) heap.insert((char)(i + 97), freq[i]);
@@ -34,6 +37,13 @@ void main(){
 	if (freq[29] != 0) heap.insert('\n', freq[29]);
 
 	heap.print();
+
+	// Building Tree
+	int fin = heap.getSize();
+	for (int i = 1; i < fin; i++){
+		heap.deletion_for_tree();
+	}
+	heap.traverse();
 
 	system("pause");
 }
