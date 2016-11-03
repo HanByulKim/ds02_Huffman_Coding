@@ -31,7 +31,7 @@ public:
 		traverse(tvl->left);
 		traverse(tvl->right);
 		if (tvl->left == NULL&&tvl->right == NULL)
-			std::cout << n << " : " << freq << std::endl;
+			std::cout << tvl->n << " : " << tvl->freq << std::endl;
 	}
 	char n;
 	int freq;
