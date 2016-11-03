@@ -64,6 +64,7 @@ int* Rscript(int& cnt){
 					freq[26]++;
 					break;
 				case ',':
+				case 32:
 					freq[27]++;
 					break;
 				case '.':
@@ -73,7 +74,7 @@ int* Rscript(int& cnt){
 					freq[str.at(i) - 97]++;
 				}
 			}
-			freq[29]++;// for end of line
+			freq[29]++;	// for end of line
 		}
 	}
 	else{ std::cout << "Wrong File!" << std::endl; }
