@@ -6,6 +6,7 @@ SNU Dept. of Electrical & Computer Engineering
 Han-Byul Kim
 *********************************************
 Rev. log.
+look for https://github.com/HanByulKim/ds02_Huffman_Coding
 **/
 
 #include <iostream>
@@ -15,13 +16,16 @@ Rev. log.
 #include "Heap.h"
 #include "KeyMap.h"
 
-int* Rscript(int& cnt);
-std::string CleanLine(const std::string& n);
+int* Rscript(int& cnt); // Reading Script function
+std::string CleanLine(const std::string& n); // Sub-function of Rscript
+std::string Enscript(KeyMap& keymap); // Encoding function
+std::string Decscript(KeyMap& keymap); // Decoding function
 
 void main(){
 	std::cout << std::numeric_limits<char>::max() << std::endl;
 	std::cout << std::numeric_limits<int>::max() << std::endl;
 
+	/** 1. Building Tree **/
 	int* freq;
 	int cnt = 0;
 	freq = Rscript(cnt);
@@ -44,12 +48,16 @@ void main(){
 	for (int i = 1; i < fin; i++){
 		heap.deletion_for_tree();
 	}
-	
-	KeyMap keymap(cnt);
-
-	heap.traverse(keymap);
 
 	// Constructing encoded keymap
+	KeyMap keymap(cnt);
+	heap.traverse(keymap);
+	keymap.print();
+	
+	// encoding message
+	std::string encoded = Enscript(keymap);
+	std::cout << encoded << std::endl;
+
 
 	system("pause");
 }
@@ -97,6 +105,72 @@ int* Rscript(int& cnt){
 	for (int i = 0; i < 30; i++) if (freq[i] != 0)cnt++;
 
 	return freq;
+}
+
+std::string Enscript(KeyMap& keymap){
+	std::string filename = "message.txt";
+	std::stringstream ss;
+	std::string str, cleanstr;
+	std::string res="";
+
+	std::ifstream file(filename);
+
+	if (file){ // Same as Try Catch Exception
+		while (!file.eof()) {
+			std::getline(file, str);
+			std::cout << str << " -> ";
+
+			// Clean each line.
+			cleanstr = CleanLine(str);
+
+			// Pass the cleaned-up string into a stringstream, to parse out the data elements.
+			ss.clear();
+			// Stringstream will parse directly on whitespace.
+
+			// 0~25 : a-z, 26 : space, 27 : comma, 28 : dot, 29 : new line
+			for (int i = 0; i < str.length(); i++){
+				if (str.at(i) == '\0') str.at(i) = '-';
+				if (str.at(i) == '\n') str.at(i) = '+';
+				res = res + keymap.find(str.at(i));
+			}
+		}
+	}
+	else{ std::cout << "Wrong File!" << std::endl; }
+
+	return res;
+}
+
+std::string Decscript(KeyMap& keymap){
+	std::string filename = "message.txt";
+	std::stringstream ss;
+	std::string str, cleanstr;
+	std::string res = "";
+
+	std::ifstream file(filename);
+
+	if (file){ // Same as Try Catch Exception
+		while (!file.eof()) {
+			std::getline(file, str);
+			std::cout << str << " -> ";
+
+			// Clean each line.
+			cleanstr = CleanLine(str);
+
+			// Pass the cleaned-up string into a stringstream, to parse out the data elements.
+			ss.clear();
+			// Stringstream will parse directly on whitespace.
+
+			// 0~25 : a-z, 26 : space, 27 : comma, 28 : dot, 29 : new line
+			for (int i = 0; i < str.length(); i++){
+				if (str.at(i) == '\0') str.at(i) = '-';
+				if (str.at(i) == '\n') str.at(i) = '+';
+				res = res + keymap.find(str.at(i));
+			}
+		}
+	}
+	else{ std::cout << "Wrong File!" << std::endl; }
+
+	return res;
 }
 
 std::string CleanLine(const std::string& n){

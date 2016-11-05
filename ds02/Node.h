@@ -1,6 +1,8 @@
 #pragma once
 #include <limits>
 #include <iostream>
+#include <string>
+#include "KeyMap.h"
 
 class Node{
 public:
@@ -29,7 +31,8 @@ public:
 		keymap.deltemp();
 		if (left == NULL&&right == NULL){
 			keymap.assign(n);
-			std::cout << keymap--.n << " : " << keymap++.key << std::endl;
+			std::cout << keymap--.n << " : " << keymap--.key << std::endl;
+			keymap++;
 		}
 	}
 	void traverse(Node* tvl, KeyMap& keymap){
@@ -42,9 +45,10 @@ public:
 		keymap.deltemp();
 		if (tvl->left == NULL&&tvl->right == NULL){
 			keymap.assign(tvl->n);
-			std::cout << keymap--.n << " : " << keymap++.key << std::endl;
+			std::cout << keymap--.n << " : " << keymap--.key << std::endl;
+			keymap++;
+		}
 	}
-
 	char n;
 	int freq;
 
