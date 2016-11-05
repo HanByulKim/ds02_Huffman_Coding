@@ -7,6 +7,7 @@ Han-Byul Kim
 *********************************************
 Rev. log.
 look for https://github.com/HanByulKim/ds02_Huffman_Coding
+*********************************************
 **/
 
 #include <iostream>
@@ -22,15 +23,13 @@ std::string Enscript(KeyMap& keymap); // Encoding function
 std::string Decscript(KeyMap& keymap); // Decoding function
 
 void main(){
-	std::cout << std::numeric_limits<char>::max() << std::endl;
-	std::cout << std::numeric_limits<int>::max() << std::endl;
-
+	std::cout << "*********************************************" << std::endl << "2016 Autumn DataStructure HW02" << std::endl << "SNU Dept. of Electrical & Computer Engineering" << std::endl << "2014-13261" << std::endl << "Han - Byul Kim" << std::endl << "*********************************************" << std::endl << "Rev. log." << std::endl << "look for https://github.com/HanByulKim/ds02_Huffman_Coding" << std::endl << "*********************************************" << std::endl;
 	/** 1. Building Tree **/
 	int* freq;
 	int cnt = 0;
 	freq = Rscript(cnt);
-	for (int i = 0; i < 30; i++)
-		std::cout << freq[i] << ", ";
+	/*for (int i = 0; i < 30; i++)
+		std::cout << freq[i] << ", ";*/
 
 	// Constructing Heap
 	Heap heap(cnt);
@@ -41,7 +40,8 @@ void main(){
 	if (freq[28] != 0) heap.insert('.', freq[28]);
 	if (freq[29] != 0) heap.insert('+', freq[29]);
 
-	heap.print();
+	std::cout << "--------------------------------------------" << std::endl << "     Heap" << std::endl << "--------------------------------------------" << std::endl;
+	heap.print(); // Printing Heap
 
 	// Building Tree
 	int fin = heap.getSize();
@@ -52,12 +52,17 @@ void main(){
 	// Constructing encoded keymap
 	KeyMap keymap(cnt);
 	heap.traverse(keymap);
-	keymap.print();
+	std::cout << "--------------------------------------------" << std::endl << "     Binary Mapping Table" << std::endl << "--------------------------------------------" << std::endl;
+	keymap.print(); // Printing Encoding Map
 	
 	// encoding message
-	std::string encoded = Enscript(keymap);
-	std::cout << encoded << std::endl;
+	std::cout << "--------------------------------------------" << std::endl << "     Encoding" << std::endl << "--------------------------------------------" << std::endl;
+	std::cout << Enscript(keymap) << std::endl;
 
+	// decoding message
+	std::cout << "--------------------------------------------" << std::endl << "     Decoding" << std::endl << "--------------------------------------------" << std::endl;
+	std::cout << Decscript(keymap) << std::endl;
+	std::cout << "--------------------------------------------" << std::endl;
 
 	system("pause");
 }
@@ -118,7 +123,7 @@ std::string Enscript(KeyMap& keymap){
 	if (file){ // Same as Try Catch Exception
 		while (!file.eof()) {
 			std::getline(file, str);
-			std::cout << str << " -> ";
+			std::cout << str << std::endl << " -> ";
 
 			// Clean each line.
 			cleanstr = CleanLine(str);
@@ -141,17 +146,18 @@ std::string Enscript(KeyMap& keymap){
 }
 
 std::string Decscript(KeyMap& keymap){
-	std::string filename = "message.txt";
+	std::string filename = "binary.txt";
 	std::stringstream ss;
 	std::string str, cleanstr;
 	std::string res = "";
+	int border = 0;
 
 	std::ifstream file(filename);
 
 	if (file){ // Same as Try Catch Exception
 		while (!file.eof()) {
 			std::getline(file, str);
-			std::cout << str << " -> ";
+			std::cout << str << std::endl << " -> ";
 
 			// Clean each line.
 			cleanstr = CleanLine(str);
@@ -161,10 +167,10 @@ std::string Decscript(KeyMap& keymap){
 			// Stringstream will parse directly on whitespace.
 
 			// 0~25 : a-z, 26 : space, 27 : comma, 28 : dot, 29 : new line
+			keymap.init();
 			for (int i = 0; i < str.length(); i++){
-				if (str.at(i) == '\0') str.at(i) = '-';
-				if (str.at(i) == '\n') str.at(i) = '+';
-				res = res + keymap.find(str.at(i));
+				//if (str.at(i) != 0 && str.at(i) != 1){ std::cout << "Exception:Wrong Word." << std::endl; break; }
+				if (!keymap.findbinary(str.at(i), res)){ std::cout << "Wrong Word" << std::endl; }
 			}
 		}
 	}

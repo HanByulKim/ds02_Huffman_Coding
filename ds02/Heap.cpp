@@ -24,7 +24,7 @@ void Heap::insert(char cat, int freq){
 	upheap();
 }
 
-void Heap::insert(Node ins){ //
+void Heap::insert(Node& ins){ //
 	list[idx] = ins;
 	idx++;
 	size++;
@@ -54,7 +54,7 @@ void Heap::deletion_for_tree(){
 	idx--;
 	size--;
 	downheap();
-	print();
+	//print();
 
 	Node temp2 = list[1];
 	list[1] = list[idx-1];
@@ -64,13 +64,13 @@ void Heap::deletion_for_tree(){
 	idx--;
 	size--;
 	downheap();
-	print();
+	//print();
 
 	Node temp3(temp1.freq + temp2.freq);
 	temp3.left = new Node(temp1.n, temp1.freq, temp1.left, temp1.right);
 	temp3.right = new Node(temp2.n, temp2.freq, temp2.left, temp2.right);
 	insert(temp3);
-	print();
+	//print();
 }
 
 void Heap::downheap(){

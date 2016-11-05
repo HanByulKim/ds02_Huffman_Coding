@@ -9,7 +9,7 @@ public:
 	bool isEmpty();
 	int getSize();
 	void insert(char cat, int freq);
-	void insert(Node ins);
+	void insert(Node& ins);
 	void upheap();
 	void upheap(int i);
 	void deletion_for_tree();
