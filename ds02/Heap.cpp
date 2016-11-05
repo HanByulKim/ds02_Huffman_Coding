@@ -98,8 +98,8 @@ void Heap::downheap(int i){
 	}
 }
 
-void Heap::traverse(){
-	list[1].traverse();
+void Heap::traverse(KeyMap& keymap){
+	list[1].traverse(keymap);
 }
 
 void Heap::print(){

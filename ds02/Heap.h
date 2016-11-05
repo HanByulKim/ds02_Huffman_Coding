@@ -1,5 +1,6 @@
 #pragma once
 #include "Node.h"
+#include "KeyMap.h"
 
 class Heap{
 public:
@@ -14,7 +15,7 @@ public:
 	void deletion_for_tree();
 	void downheap();
 	void downheap(int i);
-	void traverse();
+	void traverse(KeyMap& keymap);
 	void print(); // for test
 
 	int integrate;

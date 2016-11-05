@@ -20,19 +20,31 @@ public:
 		return (*this);
 	}
 
-	void traverse(){	// itself as root
-		traverse(left);
-		traverse(right);
-		if (left == NULL&&right == NULL)
-			std::cout << n << " : " << freq << std::endl;
+	void traverse(KeyMap& keymap){	// itself as root
+		keymap.addtemp('0');
+		traverse(left, keymap);
+		keymap.deltemp();
+		keymap.addtemp('1');
+		traverse(right, keymap);
+		keymap.deltemp();
+		if (left == NULL&&right == NULL){
+			keymap.assign(n);
+			std::cout << keymap--.n << " : " << keymap++.key << std::endl;
+		}
 	}
-	void traverse(Node* tvl){
+	void traverse(Node* tvl, KeyMap& keymap){
 		if (tvl == NULL) return;
-		traverse(tvl->left);
-		traverse(tvl->right);
-		if (tvl->left == NULL&&tvl->right == NULL)
-			std::cout << tvl->n << " : " << tvl->freq << std::endl;
+		keymap.addtemp('0');
+		traverse(tvl->left, keymap);
+		keymap.deltemp();
+		keymap.addtemp('1');
+		traverse(tvl->right, keymap);
+		keymap.deltemp();
+		if (tvl->left == NULL&&tvl->right == NULL){
+			keymap.assign(tvl->n);
+			std::cout << keymap--.n << " : " << keymap++.key << std::endl;
 	}
+
 	char n;
 	int freq;
 

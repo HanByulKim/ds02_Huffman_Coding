@@ -13,6 +13,7 @@ Rev. log.
 #include <sstream>
 #include <string>
 #include "Heap.h"
+#include "KeyMap.h"
 
 int* Rscript(int& cnt);
 std::string CleanLine(const std::string& n);
@@ -31,10 +32,10 @@ void main(){
 	Heap heap(cnt);
 	for (char i = 0; i < 26; i++)
 		if(freq[i] != 0) heap.insert((char)(i + 97), freq[i]);
-	if (freq[26] != 0) heap.insert(' ', freq[26]);
+	if (freq[26] != 0) heap.insert('-', freq[26]);
 	if (freq[27] != 0) heap.insert(',', freq[27]);
 	if (freq[28] != 0) heap.insert('.', freq[28]);
-	if (freq[29] != 0) heap.insert('\n', freq[29]);
+	if (freq[29] != 0) heap.insert('+', freq[29]);
 
 	heap.print();
 
@@ -43,7 +44,12 @@ void main(){
 	for (int i = 1; i < fin; i++){
 		heap.deletion_for_tree();
 	}
-	heap.traverse();
+	
+	KeyMap keymap(cnt);
+
+	heap.traverse(keymap);
+
+	// Constructing encoded keymap
 
 	system("pause");
 }
