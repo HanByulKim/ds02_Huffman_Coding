@@ -31,7 +31,7 @@ public:
 		keymap.deltemp();
 		if (left == NULL&&right == NULL){
 			keymap.assign(n);
-			std::cout << keymap--.n << " : " << keymap--.key << std::endl;
+			//std::cout << keymap--.n << " : " << keymap--.key << std::endl;
 			keymap++;
 		}
 	}
@@ -45,7 +45,7 @@ public:
 		keymap.deltemp();
 		if (tvl->left == NULL&&tvl->right == NULL){
 			keymap.assign(tvl->n);
-			std::cout << keymap--.n << " : " << keymap--.key << std::endl;
+			//std::cout << keymap--.n << " : " << keymap--.key << std::endl;
 			keymap++;
 		}
 	}

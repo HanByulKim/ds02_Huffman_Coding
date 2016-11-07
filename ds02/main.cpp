@@ -53,7 +53,8 @@ void main(){
 	KeyMap keymap(cnt);
 	heap.traverse(keymap);
 	std::cout << "--------------------------------------------" << std::endl << "     Binary Mapping Table" << std::endl << "--------------------------------------------" << std::endl;
-	keymap.print(); // Printing Encoding Map
+	//keymap.print(); // Printing Encoding Map
+	keymap.printseries();
 	
 	// encoding message
 	std::cout << "--------------------------------------------" << std::endl << "     Encoding" << std::endl << "--------------------------------------------" << std::endl;

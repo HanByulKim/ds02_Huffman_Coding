@@ -80,8 +80,8 @@ void Heap::downheap(){
 void Heap::downheap(int i){
 
 	if (2*i > idx - 1) return;
-	else if (list[2*i].freq < list[2*i+1].freq){
-		if (list[2 * i].freq < list[i].freq){
+	else if (list[2*i].freq <= list[2*i+1].freq){
+		if (list[2 * i].freq <= list[i].freq){
 			Node temp = list[2*i];
 			list[2*i] = list[i];
 			list[i] = temp;
